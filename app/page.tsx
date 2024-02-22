@@ -1,7 +1,5 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function Page() {
   return (
-    <p>bonjour</p>
+    <p>Yo Yo Yo, Welcome to BrewLog!</p>
   );
 }
