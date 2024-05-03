@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-pref: 214, 219, 220;
+  --foreground-pref: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-start-rgb: 105, 105, 105;
-    --background-end-rgb: 0, 0, 0;
+    --background-pref: #121212;
+    --foreground-pref: #e7e5e4; /*Same as stone-200*/
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  color: var(--foreground-pref);
+  background: var(--background-pref);
+  
 }
 
 @layer utilities {
