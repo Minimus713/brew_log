@@ -3,6 +3,12 @@ export type BrewTimelineTemplate = {
     steps: Array<Step>
 }
 
+export type AvailableBrew = {
+    timeline: BrewTimelineTemplate,
+    display: string,
+    id: number
+}
+
 export type Step = {
     name: string,
     description: string,

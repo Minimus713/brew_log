@@ -9,7 +9,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-pref: #121212;
+    --background-pref: #171717;
     --foreground-pref: #e7e5e4; /*Same as stone-200*/
   }
 }

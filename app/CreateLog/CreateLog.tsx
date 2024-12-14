@@ -2,32 +2,63 @@
 
 import { ChangeEvent, useState } from 'react';
 import dayjs from 'dayjs';
-import { BeerTimelineTemplate } from './BrewTemplates';
-import { ImportantDates } from './types';
+import {
+  BeerTimelineTemplate,
+  CiderTimelineTemplate,
+  MeadTimelineTemplate,
+} from './BrewTemplates';
+import { BrewTimelineTemplate, ImportantDates, AvailableBrew } from './types';
+
+const availableBrews: Array<AvailableBrew> = [
+  {
+    timeline: BeerTimelineTemplate,
+    id: 0,
+    display: 'Beer',
+  },
+  {
+    timeline: MeadTimelineTemplate,
+    id: 1,
+    display: 'Mead',
+  },
+  {
+    timeline: CiderTimelineTemplate,
+    id: 2,
+    display: 'Cider',
+  },
+];
 
 export default function CreateLog() {
   const [brewStartDate, setBrewStartDate] = useState(
     dayjs().format('YYYY-MM-DD')
   );
-  const [brewType, setBrewType] = useState('beer');
-  const [autofillDate, setAutofillDate] = useState(false);
+  const [brewType, setBrewType] = useState<number>(0);
+  const [autofillDate, setAutofillDate] = useState<boolean>(false);
   const [brewDates, setBrewDates] = useState<Array<ImportantDates>>([]);
+  const [template, setTemplate] = useState<BrewTimelineTemplate | undefined>(
+    BeerTimelineTemplate
+  );
 
   const changeDate = (value: ChangeEvent<HTMLInputElement>) => {
     setBrewStartDate(value.target.value);
   };
 
   const changeBrew = (value: ChangeEvent<HTMLSelectElement>) => {
-    console.log(value.target.value);
-    setBrewType(value.target.value);
+    const brewId = Number(value.target.value);
+    console.log(brewId);
+    setBrewType(brewId);
+
+    const timelineTemplate: AvailableBrew | undefined = availableBrews.find(
+      (brew) => brew.id === brewId
+    );
+    setTemplate(timelineTemplate?.timeline);
   };
 
   const submit = () => {
     console.log(brewStartDate, brewType, autofillDate);
 
-    if (autofillDate) {
+    if (autofillDate && template) {
       const startDateObject = dayjs(brewStartDate);
-      const importantDates = BeerTimelineTemplate.steps.map((step) => {
+      const importantDates = template.steps.map((step) => {
         return {
           date: startDateObject
             .add(step.daysPostBrew, 'days')
@@ -62,10 +93,16 @@ export default function CreateLog() {
           onChange={changeBrew}
           className="py-2 px-4 rounded-md bg-amber-800 text-stone-300 focus:text-stone-100 text-xl"
         >
-          <option value="beer">Beer</option>
-          <option value="mead">Mead</option>
-          <option value="cyser">Cyser</option>
-          <option value="cider">Cider</option>
+          {availableBrews.map((brew) => {
+            return (
+              <option
+                key={brew.id}
+                value={brew.id}
+              >
+                {brew.display}
+              </option>
+            );
+          })}
         </select>
       </span>
 
