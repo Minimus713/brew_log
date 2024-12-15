@@ -37,6 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## About this app
 
+This app was created as part of my hobby for homebrewing. I wanted to make an app where I could store all brewing related stuff in one place, rather than on scrap pieces of paper or index cards. Aside from that, this app was meant to be practice for myself with coding in general, but more specifically full stack development from top to bottom, trying to use as few libraries as possible, writing tests, using typescript, among other things I wanted to try.
+
 Built using:
 
 - NextJS
